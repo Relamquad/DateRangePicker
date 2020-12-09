@@ -30,7 +30,7 @@ public class CalendarDateRangePickerViewController: UICollectionViewController {
     public var selectedStartDate: Date?
     public var selectedEndDate: Date?
     
-    public var selectedColor = UIColor(red: 66/255.0, green: 150/255.0, blue: 240/255.0, alpha: 1.0)
+    public var selectedColor = UIColor(red: 237/255.0, green: 29/255.0, blue: 36/255.0, alpha: 1.0)
     public var titleText = "Select Dates"
 
     override public func viewDidLoad() {
@@ -58,11 +58,9 @@ public class CalendarDateRangePickerViewController: UICollectionViewController {
         self.navigationItem.rightBarButtonItem?.isEnabled = selectedStartDate != nil && selectedEndDate != nil
     }
     
-    override public func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let item = self.collectionView(self.collectionView, numberOfItemsInSection: 0) - 1
-        let lastItemIndex = IndexPath(item: item, section: 0)
-        self.collectionView.scrollToItem(at: lastItemIndex, at: .top, animated: true)
+    override public func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.collectionView.scrollToLast()
     }
     
     @objc func didTapCancel() {
@@ -255,4 +253,22 @@ extension CalendarDateRangePickerViewController {
         return Calendar.current.compare(dateA, to: dateB, toGranularity: .day) == ComparisonResult.orderedAscending
     }
     
+}
+
+public extension UICollectionView {
+    func scrollToLast() {
+        guard numberOfSections > 0 else {
+            return
+        }
+
+        let lastSection = numberOfSections - 1
+
+        guard numberOfItems(inSection: lastSection) > 0 else {
+            return
+        }
+
+        let lastItemIndexPath = IndexPath(item: numberOfItems(inSection: lastSection) - 1,
+                                          section: lastSection)
+        scrollToItem(at: lastItemIndexPath, at: .bottom, animated: true)
+    }
 }
