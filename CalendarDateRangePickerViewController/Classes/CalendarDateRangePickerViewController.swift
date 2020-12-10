@@ -36,7 +36,7 @@ public class CalendarDateRangePickerViewController: UICollectionViewController {
     public var closeButtonColor: UIColor = .blue
     public var doneButtonTitle = "Done"
     public var doneButtonColor: UIColor = .blue
-    public var navTitleColor: UIColor = .blue
+    public var navTitleColor: UIColor = .black
 
     override public func viewDidLoad() {
         super.viewDidLoad()
