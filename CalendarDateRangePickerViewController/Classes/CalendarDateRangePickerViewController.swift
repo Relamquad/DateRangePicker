@@ -36,6 +36,7 @@ public class CalendarDateRangePickerViewController: UICollectionViewController {
     public var closeButtonColor: UIColor = .blue
     public var doneButtonTitle = "Done"
     public var doneButtonColor: UIColor = .blue
+    public var navTitleColor: UIColor = .blue
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +67,8 @@ public class CalendarDateRangePickerViewController: UICollectionViewController {
 
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
         self.navigationItem.rightBarButtonItem?.isEnabled = selectedStartDate != nil && selectedEndDate != nil
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: navTitleColor]
+
     }
     
     override public func viewDidAppear(_ animated: Bool) {
