@@ -32,6 +32,10 @@ public class CalendarDateRangePickerViewController: UICollectionViewController {
     
     public var selectedColor = UIColor(red: 237/255.0, green: 29/255.0, blue: 36/255.0, alpha: 1.0)
     public var titleText = "Select Dates"
+    public var closeButtonTitle = "Cancel"
+    public var closeButtonColor: UIColor = .blue
+    public var doneButtonTitle = "Done"
+    public var doneButtonColor: UIColor = .blue
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -53,8 +57,14 @@ public class CalendarDateRangePickerViewController: UICollectionViewController {
             maximumDate = Calendar.current.date(byAdding: .year, value: 3, to: minimumDate)
         }
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(CalendarDateRangePickerViewController.didTapCancel))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(CalendarDateRangePickerViewController.didTapDone))
+        let leftBarButtonItem = UIBarButtonItem(title: closeButtonTitle, style: .plain, target: self, action: #selector(CalendarDateRangePickerViewController.didTapCancel))
+        leftBarButtonItem.tintColor = closeButtonColor
+        
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+        let rightBarButtonItem = UIBarButtonItem(title: doneButtonTitle, style: .done, target: self, action: #selector(CalendarDateRangePickerViewController.didTapDone))
+        rightBarButtonItem.tintColor = doneButtonColor
+
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem
         self.navigationItem.rightBarButtonItem?.isEnabled = selectedStartDate != nil && selectedEndDate != nil
     }
     
