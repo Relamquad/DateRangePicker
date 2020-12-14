@@ -73,7 +73,8 @@ public class CalendarDateRangePickerViewController: UICollectionViewController {
     
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.collectionView.scrollToLast()
+//        self.collectionView.scrollToLast()
+        self.collectionView.scrollToItem(Calendar.current.dateComponents([.month], from: minimumDate, to: selectedStartDate!).month ?? 0)
     }
     
     @objc func didTapCancel() {
@@ -275,6 +276,20 @@ public extension UICollectionView {
         }
 
         let lastSection = numberOfSections - 1
+
+        guard numberOfItems(inSection: lastSection) > 0 else {
+            return
+        }
+
+        let lastItemIndexPath = IndexPath(item: numberOfItems(inSection: lastSection) - 1,
+                                          section: lastSection)
+        scrollToItem(at: lastItemIndexPath, at: .bottom, animated: true)
+    }
+    
+    func scrollToItem(_ lastSection: Int) {
+        guard numberOfSections > 0 else {
+            return
+        }
 
         guard numberOfItems(inSection: lastSection) > 0 else {
             return
